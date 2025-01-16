@@ -56,6 +56,7 @@ retrieved_docs = vectorstore.similarity_search(query, k=3)
 
 # retrieved_docs = vectorstore.similarity_search_with_score(query="Как звали троллей", search_type="mmr", search_kwargs={"k": 10, "score_threshold": 0.99})
 # retrieved_docs = retriever.invoke("Как звали троллей")
+# similarity_search_with_relevance_scores - use cosine similarity
 
 for num, item in enumerate(retrieved_docs):
     print(f"\n---{num + 1}----\n{item.page_content}")
