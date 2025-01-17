@@ -69,10 +69,10 @@ if not os.path.exists(faiss_meta_dir):
     vectorstore = FAISS.from_documents(docs, embeddings)
     vectorstore.save_local(faiss_meta_dir)
 
-
-# Load the existing vector store with embedding function
-logger.info(f"Load vector store data from {faiss_meta_dir}")
-vectorstore = FAISS.load_local(faiss_meta_dir, embeddings, allow_dangerous_deserialization=True)
+else:
+    # Load the existing vector store with embedding function
+    logger.info(f"Load vector store data from {faiss_meta_dir}")
+    vectorstore = FAISS.load_local(faiss_meta_dir, embeddings, allow_dangerous_deserialization=True)
 
 query = "Маугли"
 
