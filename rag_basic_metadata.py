@@ -52,7 +52,7 @@ if not os.path.exists(faiss_meta_dir):
     documents = []
     for book_file in book_files:
         file_path = books_dir / book_file
-        loader = TextLoader(file_path, encoding='UTF-8')
+        loader = TextLoader(file_path, encoding='utf-8')
         book_doc = loader.load()
         documents.append(book_doc[0])
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
@@ -74,10 +74,10 @@ else:
     logger.info(f"Load vector store data from {faiss_meta_dir}")
     vectorstore = FAISS.load_local(faiss_meta_dir, embeddings, allow_dangerous_deserialization=True)
 
-query = "Маугли"
+query = 'Шер-Хан'
 
 # Retrieve relevant documents based on the query
-retrieved_docs = vectorstore.similarity_search(query, k=5)
+retrieved_docs = vectorstore.similarity_search_with_score(query, k=5)
 
 for i, cont in enumerate(retrieved_docs):
     print(f"\n-----{i}------\n{cont}")
