@@ -34,7 +34,7 @@ logger.info(f"Books directory: {books_dir}")
 logger.info(f"FAISS vectorstore with metadata directory: {faiss_meta_dir}")
 
 # Setup for embeddings
-embeddings = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
+embeddings = OpenAIEmbeddings(model='text-embedding-3-small', openai_api_key=os.getenv("OPENAI_API_KEY"))
 
 if not os.path.exists(faiss_meta_dir):
     logger.info(f"The directory {faiss_meta_dir} does not exist. Initializing vector store...")
@@ -74,10 +74,9 @@ else:
     logger.info(f"Load vector store data from {faiss_meta_dir}")
     vectorstore = FAISS.load_local(faiss_meta_dir, embeddings, allow_dangerous_deserialization=True)
 
-query = 'Шер-Хан'
-
+query = 'Как умер Вини-Пух'
 # Retrieve relevant documents based on the query
 retrieved_docs = vectorstore.similarity_search_with_score(query, k=5)
 
 for i, cont in enumerate(retrieved_docs):
-    print(f"\n-----{i}------\n{cont}")
+    print(f"\n-----{i}------\n{cont[0].page_content}")
